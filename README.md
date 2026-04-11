@@ -17,3 +17,6 @@ This repository contains my daily DSA problem solutions.
 ## Platforms
 - LeetCode
 - geeksforgeeks
+
+## Progress
+- Day 1: Maximum Subarray (Kadane's Algorithm)
