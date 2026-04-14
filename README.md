@@ -21,3 +21,4 @@ This repository contains my daily DSA problem solutions.
 ## Progress
 - Day 1: Maximum Subarray (Kadane's Algorithm)
 - Day 2: Best Time to Buy and Sell Stock (Greedy Approach)
+- Day 5: Solved Next Permutation
