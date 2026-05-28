@@ -1,0 +1,366 @@
+# Notes for Your Latest Insertion Sort Version
+
+Your code:
+
+```java id="0e73cx"
+public int[] insertionSort(int[] nums) {
+
+    for(int i=1;i<nums.length;i++) {
+
+        int j=i;
+
+        while(j>0 && nums[j-1]>nums[j]) {
+
+            int temp=nums[j-1];
+            nums[j-1]=nums[j];
+            nums[j]=temp;
+
+            j--;
+        }
+    }
+
+    return nums;
+}
+```
+
+---
+
+# 1. Core Idea
+
+```text id="g1f3o1"
+Take one element
+Move it left
+until it reaches correct position
+```
+
+Insertion sort builds a sorted part gradually.
+
+---
+
+# 2. Main Concept
+
+```text id="7evw5s"
+Left side → sorted
+Right side → unsorted
+```
+
+At every iteration:
+
+```text id="jlwmj6"
+0 to i-1 → sorted
+i to end → unsorted
+```
+
+---
+
+# 3. Outer Loop Purpose
+
+```java id="sb0xyl"
+for(int i=1;i<nums.length;i++)
+```
+
+Purpose:
+
+```text id="2t06sv"
+Pick each element one by one
+```
+
+Starts from `1` because:
+
+```text id="nl9j3n"
+First element is already sorted
+```
+
+---
+
+# 4. `j = i`
+
+```java id="5qzoy0"
+int j=i;
+```
+
+Purpose:
+
+```text id="yydvgq"
+Used to move current element left
+```
+
+---
+
+# 5. While Loop Purpose
+
+```java id="2kg63m"
+while(j>0 && nums[j-1]>nums[j])
+```
+
+Meaning:
+
+## Condition 1
+
+```java id="ll5frd"
+j > 0
+```
+
+Prevents:
+
+```text id="g7h0j4"
+Array index out of bounds
+```
+
+---
+
+## Condition 2
+
+```java id="n9hbr6"
+nums[j-1] > nums[j]
+```
+
+Checks:
+
+```text id="f8h83m"
+Is left element bigger?
+```
+
+If yes:
+
+```text id="kkxmbk"
+swap them
+```
+
+---
+
+# 6. Swapping Logic
+
+```java id="zyi22p"
+int temp=nums[j-1];
+nums[j-1]=nums[j];
+nums[j]=temp;
+```
+
+Purpose:
+
+```text id="nln5g2"
+Move smaller element left
+```
+
+---
+
+# 7. `j--`
+
+```java id="9yv6gh"
+j--;
+```
+
+Purpose:
+
+```text id="jlwm1p"
+Continue checking towards left side
+```
+
+---
+
+# 8. Visualization
+
+Example:
+
+```text id="w3r4bo"
+[5,4,3]
+```
+
+---
+
+## Step 1
+
+Take `4`
+
+```text id="34lj8m"
+5 > 4
+swap
+
+[4,5,3]
+```
+
+---
+
+## Step 2
+
+Take `3`
+
+```text id="t0t7tt"
+5 > 3
+swap
+
+[4,3,5]
+```
+
+Again:
+
+```text id="yq2tzp"
+4 > 3
+swap
+
+[3,4,5]
+```
+
+---
+
+# 9. Time Complexity
+
+## Worst Case
+
+Reverse sorted array:
+
+```text id="mjlwm8"
+5 4 3 2 1
+```
+
+Operations:
+
+```text id="2lcj2q"
+1+2+3+...+n
+```
+
+Formula:
+
+1+2+3+\cdots+n=\frac{n(n+1)}{2}
+
+Thus:
+
+```text id="5gq2h7"
+O(n²)
+```
+
+---
+
+# 10. Best Case
+
+Already sorted:
+
+```text id="t7t5ws"
+1 2 3 4 5
+```
+
+While condition fails immediately.
+
+So:
+
+```text id="49ol27"
+O(n)
+```
+
+---
+
+# 11. Average Case
+
+```text id="tl8j19"
+O(n²)
+```
+
+---
+
+# 12. Space Complexity
+
+Uses only:
+
+```text id="ozrf3y"
+temp, i, j
+```
+
+So:
+
+```text id="u4j2h7"
+O(1)
+```
+
+---
+
+# 13. Stability
+
+Insertion sort is:
+
+```text id="jcf5ib"
+Stable
+```
+
+Equal elements keep same order.
+
+---
+
+# 14. Adaptive Nature
+
+Works faster on:
+
+```text id="h1xbj4"
+Nearly sorted arrays
+```
+
+Because while loop stops early.
+
+---
+
+# 15. Important Interview Points
+
+## Advantages
+
+* Simple
+* Stable
+* Good for small arrays
+* Good for nearly sorted arrays
+
+---
+
+## Disadvantages
+
+* Slow for large arrays
+* Worst case O(n²)
+
+---
+
+# 16. Easy Memory Trick
+
+```text id="zjl2vq"
+Pick
+Compare left
+Swap backward
+Repeat
+```
+
+---
+
+# 17. One-Line Definition
+
+> “Insertion sort inserts each element into its correct position in the already sorted left portion of the array.”
+
+---
+
+# 18. Pattern Recognition
+
+If you see:
+
+```text id="m85p9o"
+Move current element left repeatedly
+```
+
+then think:
+
+```text id="c1jlwm"
+Insertion Sort
+```
+
+---
+
+# 19. Core Understanding
+
+Insertion sort is similar to:
+
+```text id="3j1vfm"
+Arranging playing cards in hand
+```
+
+You:
+
+* pick one card
+* compare left
+* insert in correct place
+
+That is the whole algorithm.
