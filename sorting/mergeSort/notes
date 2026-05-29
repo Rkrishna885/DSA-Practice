@@ -1,0 +1,364 @@
+Here are clean **DSA interview notes for Merge Sort** based on your code.
+
+# Merge Sort Notes
+
+## 1. Definition
+
+Merge Sort is a **Divide and Conquer** algorithm.
+
+Steps:
+
+1. Divide the array into two halves.
+2. Recursively sort both halves.
+3. Merge the sorted halves.
+
+---
+
+## 2. Recursive Function
+
+```java
+public void mS(int[] arr, int low, int high)
+```
+
+### Base Case
+
+```java
+if(low >= high){
+    return;
+}
+```
+
+When only one element remains, it is already sorted.
+
+---
+
+### Finding Mid
+
+```java
+int mid = (low + high) / 2;
+```
+
+Example:
+
+```java
+arr = [4,3,2,1]
+
+low = 0
+high = 3
+
+mid = 1
+```
+
+Array splits into:
+
+```text
+[4,3]  [2,1]
+```
+
+---
+
+### Recursive Calls
+
+```java
+mS(arr, low, mid);
+mS(arr, mid + 1, high);
+```
+
+Sort left half and right half separately.
+
+---
+
+### Merge Step
+
+```java
+merge(arr, low, mid, high);
+```
+
+Combines two sorted halves into one sorted segment.
+
+---
+
+# 3. Merge Function
+
+```java
+public void merge(int[] arr,int low,int mid,int high)
+```
+
+### Temporary Array
+
+```java
+ArrayList<Integer> temp = new ArrayList<>();
+```
+
+Stores merged sorted elements.
+
+---
+
+### Two Pointers
+
+```java
+int left = low;
+int right = mid + 1;
+```
+
+Example:
+
+```text
+Left Part  = [2,4]
+Right Part = [1,3]
+```
+
+Pointers:
+
+```text
+left -> 2
+right -> 1
+```
+
+---
+
+### Compare Elements
+
+```java
+while(left <= mid && right <= high)
+```
+
+```java
+if(arr[left] <= arr[right])
+```
+
+Take smaller element.
+
+Example:
+
+```text
+2 vs 1
+
+1 is smaller
+temp = [1]
+```
+
+Then:
+
+```java
+right++;
+```
+
+---
+
+### Remaining Left Elements
+
+```java
+while(left <= mid)
+```
+
+Copy leftover elements from left half.
+
+---
+
+### Remaining Right Elements
+
+```java
+while(right <= high)
+```
+
+Copy leftover elements from right half.
+
+---
+
+### Copy Back
+
+```java
+for(int i = low; i <= high; i++){
+    arr[i] = temp.get(i - low);
+}
+```
+
+Moves sorted elements from temp back into original array.
+
+---
+
+# 4. Dry Run
+
+Input:
+
+```text
+[5,4,3,2]
+```
+
+### Divide
+
+```text
+[5,4,3,2]
+
+      ↓
+
+[5,4]      [3,2]
+
+ ↓  ↓       ↓  ↓
+
+[5][4]    [3][2]
+```
+
+---
+
+### Merge Small Parts
+
+```text
+[5] + [4] → [4,5]
+
+[3] + [2] → [2,3]
+```
+
+---
+
+### Final Merge
+
+```text
+[4,5] + [2,3]
+
+temp:
+
+2
+3
+4
+5
+```
+
+Result:
+
+```text
+[2,3,4,5]
+```
+
+---
+
+# 5. Recursion Tree
+
+```text
+             [5,4,3,2]
+
+          /             \
+
+      [5,4]           [3,2]
+
+      /   \           /   \
+
+    [5]  [4]       [3]   [2]
+
+       \ /           \ /
+
+      [4,5]        [2,3]
+
+           \      /
+
+          [2,3,4,5]
+```
+
+---
+
+# 6. Time Complexity
+
+At every level:
+
+```text
+Merge work = O(N)
+```
+
+Number of levels:
+
+```text
+log₂N
+```
+
+Therefore:
+
+```text
+Time Complexity = O(N log N)
+```
+
+Best Case:
+
+```text
+O(N log N)
+```
+
+Average Case:
+
+```text
+O(N log N)
+```
+
+Worst Case:
+
+```text
+O(N log N)
+```
+
+---
+
+# 7. Space Complexity
+
+Extra temporary array:
+
+```text
+O(N)
+```
+
+Recursion stack:
+
+```text
+O(log N)
+```
+
+Overall:
+
+```text
+Space Complexity = O(N)
+```
+
+---
+
+# 8. Important Interview Points
+
+✅ Stable Sorting Algorithm
+
+```text
+Equal elements maintain their relative order.
+```
+
+✅ Divide and Conquer
+
+✅ Guaranteed O(N log N)
+
+✅ Works well for Linked Lists
+
+❌ Not In-Place
+
+```text
+Needs extra memory.
+```
+
+---
+
+# 9. Template to Remember
+
+```java
+mergeSort(arr, low, high)
+{
+    if(low >= high) return;
+
+    mid = (low + high) / 2;
+
+    mergeSort(left half);
+    mergeSort(right half);
+
+    merge(left, right);
+}
+```
+
+**Memory Trick:**
+
+> Divide → Sort Left → Sort Right → Merge
+
+This 4-step flow is enough to write Merge Sort from scratch in most coding interviews.
