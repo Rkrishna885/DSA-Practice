@@ -1,0 +1,177 @@
+Recursive Bubble Sort Notes
+Definition
+
+Recursive Bubble Sort is a recursive version of Bubble Sort where recursion replaces the outer loop.
+
+In each recursive call:
+
+One complete pass is performed.
+The largest element moves to its correct position at the end.
+The remaining unsorted part (n - 1 elements) is sorted recursively.
+Code
+class Solution {
+    public void bS(int[] arr, int n) {
+        if(n == 1) return;
+
+        for(int j = 0; j <= n - 2; j++) {
+            if(arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+
+        bS(arr, n - 1);
+    }
+
+    public int[] bubbleSort(int[] nums) {
+        int n = nums.length;
+        bS(nums, n);
+        return nums;
+    }
+}
+Intuition
+
+Bubble Sort works by pushing the largest element to the end during each pass.
+
+Instead of using an outer loop:
+
+for(int i = 0; i < n; i++)
+
+we recursively sort the first n-1 elements after every pass.
+
+Recursive Flow
+Base Case
+if(n == 1) return;
+
+When only one element remains, the array is already sorted.
+
+One Bubble Pass
+for(int j = 0; j <= n - 2; j++)
+
+Compare adjacent elements:
+
+if(arr[j] > arr[j + 1])
+
+Swap them if they are in the wrong order.
+
+After this loop:
+
+Largest element among first n elements
+moves to index n-1
+Recursive Call
+bS(arr, n - 1);
+
+Now sort the remaining unsorted part.
+
+Dry Run
+Input
+[5, 3, 1, 4]
+First Call
+bS(arr, 4)
+
+Pass:
+
+5 3 1 4
+↓
+3 5 1 4
+↓
+3 1 5 4
+↓
+3 1 4 5
+
+Largest element (5) reaches the end.
+
+Recursive call:
+
+bS(arr, 3)
+Second Call
+
+Pass on first 3 elements:
+
+3 1 4 5
+↓
+1 3 4 5
+
+Recursive call:
+
+bS(arr, 2)
+Third Call
+
+Pass on first 2 elements:
+
+1 3 4 5
+
+Recursive call:
+
+bS(arr, 1)
+Base Case
+n == 1
+
+Return.
+
+Final Array:
+
+[1, 3, 4, 5]
+Recursion Tree
+bS(arr,4)
+    |
+    └── bS(arr,3)
+            |
+            └── bS(arr,2)
+                    |
+                    └── bS(arr,1)
+                            |
+                          Return
+Time Complexity
+Worst Case
+O(n²)
+
+Comparisons:
+
+(n-1) + (n-2) + (n-3) + ... + 1
+= n(n-1)/2
+= O(n²)
+Average Case
+O(n²)
+Best Case
+O(n²)
+
+(No optimization for early stopping is used.)
+
+Space Complexity
+Recursive Stack Space
+O(n)
+
+Because there are n recursive calls.
+
+Auxiliary Space
+O(1)
+
+No extra array is used.
+
+Key Observations
+
+✅ Recursion replaces the outer loop.
+
+✅ After every recursive call, one element is fixed at its correct position.
+
+✅ Largest element moves to the end during each pass.
+
+✅ Sorting is performed in-place.
+
+✅ Stable Sorting Algorithm.
+
+Interview Point
+
+Iterative Bubble Sort
+
+Time: O(n²)
+Space: O(1)
+
+Recursive Bubble Sort
+
+Time: O(n²)
+Space: O(n) (due to recursion stack)
+
+Recursive Bubble Sort is mainly used to understand recursion and is rarely preferred in production because it uses extra stack space.
