@@ -1,4 +1,5 @@
-// better Solution with hash map
+// better Solution with hash map for which nums contain only for postives and Zeros.
+// but this is optimal one for who's nums contain postives and negatives 
 class Solution {
     public int longestSubarray(int[] nums, int k) {
         HashMap<Long,Integer> map=new  HashMap<>();

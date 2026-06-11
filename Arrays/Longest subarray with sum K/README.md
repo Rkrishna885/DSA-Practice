@@ -631,3 +631,155 @@ Think immediately:
 ```text
 Prefix Sum + HashMap
 ```
+3. Optimal Approach (Sliding Window / Two Pointers)
+Important
+
+This approach works only when the array contains positive numbers and zeros.
+
+It does not work for negative numbers because adding a negative number can decrease the sum unexpectedly.
+
+Idea
+
+Maintain a window using two pointers:
+
+left → start of the window
+right → end of the window
+
+Keep track of the current window sum.
+
+Rules
+Expand the window by moving right.
+If sum > k, shrink the window by moving left.
+If sum == k, update the maximum length.
+Continue until the entire array is processed.
+Dry Run
+nums = [10, 5, 2, 7, 1, 9]
+k = 15
+Initial State
+left = 0
+right = 0
+sum = 10
+maxLength = 0
+Step 1
+Window = [10]
+sum = 10
+
+sum < 15
+
+Move right.
+
+Step 2
+Window = [10, 5]
+sum = 15
+
+sum == k
+
+length = 2
+maxLength = 2
+
+Move right.
+
+Step 3
+Window = [10, 5, 2]
+sum = 17
+
+sum > k
+
+Remove nums[left]
+
+sum = 7
+left = 1
+
+Move right.
+
+Step 4
+Window = [5, 2, 7, 1]
+sum = 15
+
+sum == k
+
+length = 4
+maxLength = 4
+
+Move right.
+
+Final Answer
+maxLength = 4
+
+Subarray:
+
+[5, 2, 7, 1]
+Code
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+
+        int left = 0, right = 0;
+        long sum = nums[0];
+        int maxLength = 0;
+        int n = nums.length;
+
+        while (right < n) {
+
+            while (left <= right && sum > k) {
+                sum -= nums[left];
+                left++;
+            }
+
+            if (sum == k) {
+                maxLength = Math.max(maxLength, right - left + 1);
+            }
+
+            right++;
+
+            if (right < n) {
+                sum += nums[right];
+            }
+        }
+
+        return maxLength;
+    }
+}
+Why Does This Work?
+
+Because all numbers are:
+
+Positive Numbers
+or
+Zero
+
+When:
+
+sum > k
+
+we can safely move left forward because removing elements can only decrease (or keep) the sum.
+
+This property is not true for negative numbers, which is why the Sliding Window approach fails when negatives are present.
+
+Complexity Analysis
+Time Complexity
+O(2N)
+
+or simply:
+
+O(N)
+
+Each element is:
+
+Added to the window at most once.
+Removed from the window at most once.
+Space Complexity
+O(1)
+
+Only a few variables are used.
+
+Comparison
+Approach	Time	Space	Works with Negatives?
+Brute Force	O(n²)	O(1)	✅ Yes
+Prefix Sum + HashMap	O(n)	O(n)	✅ Yes
+Sliding Window	O(n)	O(1)	❌ No (only positives & zeros)
+Interview Tip
+
+If the array contains:
+
+Only positive numbers (or zeros) → use Sliding Window.
+Positive + Negative numbers → use Prefix Sum + HashMap.
